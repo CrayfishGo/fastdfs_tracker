@@ -17,8 +17,11 @@ RUN apt-get update && apt-get install -y \
     openssl \
     wget \
     libssl-dev \
+    tzdata \
  && rm -rf /var/lib/apt/lists/* \
  && apt-get clean
+
+RUN echo "Asia/Shanghai" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
 #create the dirs to store the files downloaded from internet
 RUN mkdir -p ${FASTDFS_PATH}/libfastcommon \
