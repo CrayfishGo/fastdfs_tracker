@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-
+MAINTAINER evanyang1120@163.com
 ENV FASTDFS_PATH=/fastDFS_installer \
     FASTDFS_BASE_PATH=/data
 
