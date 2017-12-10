@@ -4,7 +4,7 @@ ENV FASTDFS_PATH=/fastDFS_installer \
     FASTDFS_BASE_PATH=/data
 
 #get all the dependences
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     git \
     make \
@@ -17,8 +17,7 @@ RUN apt-get update && apt-get install -y \
     openssl \
     wget \
     libssl-dev \
- && rm -rf /var/lib/apt/lists/* \
- && apt-get clean
+ && rm -rf /var/lib/apt/lists/*
 
 #create the dirs to store the files downloaded from internet
 RUN mkdir -p ${FASTDFS_PATH}/libfastcommon \
@@ -37,9 +36,11 @@ RUN git clone https://github.com/happyfish100/libfastcommon.git ${FASTDFS_PATH}/
 WORKDIR ${FASTDFS_PATH}/fastdfs
 RUN git clone https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdfs \
     && ./make.sh \
-    && ./make.sh install
+    && ./make.sh install \
+    && apt-get purge -y --auto-remove git wget make
 
-WORKDIR /
+VOLUME /data/fastdfs
+WORKDIR /data/fastdfs
 RUN rm -rf ${FASTDFS_PATH}
 
 COPY config/ /etc/fdfs
