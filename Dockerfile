@@ -42,6 +42,8 @@ RUN git clone https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdf
  && ./make.sh \
  && ./make.sh install
 
+WORKDIR /
+
 RUN rm -rf ${FASTDFS_PATH}
 
 COPY config/ /etc/fdfs
