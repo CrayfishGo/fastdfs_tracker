@@ -5,6 +5,7 @@ ENV FASTDFS_PATH=/fastDFS_installer \
 
 #get all the dependences
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
     gcc \
     git \
     make \
@@ -37,7 +38,7 @@ WORKDIR ${FASTDFS_PATH}/fastdfs
 RUN git clone https://github.com/happyfish100/fastdfs.git ${FASTDFS_PATH}/fastdfs \
     && ./make.sh \
     && ./make.sh install \
-    && apt-get purge -y --auto-remove git wget make
+    && apt-get purge -y --auto-remove git wget make ca-certificates
 
 VOLUME /data/fastdfs
 WORKDIR /data/fastdfs
